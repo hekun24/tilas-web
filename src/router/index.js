@@ -1,19 +1,21 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-
-Vue.use(VueRouter)
-
-const routes = [
-
-
+import Router from 'vue-router'
+Vue.use(Router)
+const router = new Router({
+  routes: [
     {
-        path: '/',
-        redirect: '../App.vue'
+      path: '/emp',
+      name: 'emp',
+      component: () => import("../views/emp/EmpView.vue")
+    },
+    {
+      path:'/',
+      name: 'app',
+      component:() => import("../components/LoginView.vue")
     }
-]
-
-const router = new VueRouter({
-    routes
+  ]
 })
+
+
 
 export default router
