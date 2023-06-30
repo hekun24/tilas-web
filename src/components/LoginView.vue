@@ -32,11 +32,21 @@
     methods: {
       login() {
        axios.post('http://localhost:8081/api/login',this.loginForm).then(res =>{
-          console.log(res.data);
           if(res.data.msg === 'success'){
-            router.push('/emp')
+            localStorage.setItem("jwt",res.data.data);
+            router.push('/emp');
           }
        }).catch();
+      }
+    },
+    beforeCreate(){
+      var jwt = localStorage.getItem("jwt");
+      if(jwt != null){
+        axios.post('http://localhost:8081/api/checklogin',jwt).then(res =>{
+          if(res.data.msg === "success"){
+            router.push('/emp');
+          }
+        }).catch();
       }
     }
   }
